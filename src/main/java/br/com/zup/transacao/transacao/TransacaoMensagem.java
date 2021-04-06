@@ -1,13 +1,10 @@
-package br.com.zup.transacao;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+package br.com.zup.transacao.transacao;
 
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.StringJoiner;
 
-public class Transacao {
+class TransacaoMensagem {
 
     private String id;
 
@@ -17,14 +14,15 @@ public class Transacao {
 
     private Map<String, String> cartao;
 
-    public Transacao(String id, BigDecimal valor, Map<String, String> estabelecimento, Map<String, String> cartao) {
+    TransacaoMensagem(String id, BigDecimal valor, Map<String, String> estabelecimento, Map<String, String> cartao) {
         this.id = id;
         this.valor = valor;
         this.estabelecimento = estabelecimento;
         this.cartao = cartao;
     }
 
-    public Transacao() {
+    @Deprecated
+    TransacaoMensagem() {
     }
 
     public String getId() {
@@ -45,7 +43,7 @@ public class Transacao {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Transacao.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", TransacaoMensagem.class.getSimpleName() + "[", "]")
                 .add("id='" + id + "'")
                 .add("valor=" + valor)
                 .add("estabelecimento=" + estabelecimento)
