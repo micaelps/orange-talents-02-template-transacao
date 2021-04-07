@@ -1,8 +1,9 @@
 package br.com.zup.transacao.transacao;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.math.BigDecimal;
 import java.util.Map;
-import java.util.StringJoiner;
 
 class TransacaoMensagem {
 
@@ -19,6 +20,12 @@ class TransacaoMensagem {
         this.valor = valor;
         this.estabelecimento = estabelecimento;
         this.cartao = cartao;
+    }
+
+    Transacao paraTransacao(ObjectMapper mapper){
+        Cartao entidadeCartao = mapper.convertValue(this.cartao, Cartao.class);
+        Estabelecimento entidadeEstabelecimento = mapper.convertValue(this.estabelecimento, Estabelecimento.class);
+        return new Transacao(this.id, this.valor, entidadeEstabelecimento, entidadeCartao);
     }
 
     @Deprecated
@@ -39,15 +46,5 @@ class TransacaoMensagem {
 
     public Map<String, String> getCartao() {
         return cartao;
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", TransacaoMensagem.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("valor=" + valor)
-                .add("estabelecimento=" + estabelecimento)
-                .add("cartao=" + cartao)
-                .toString();
     }
 }
